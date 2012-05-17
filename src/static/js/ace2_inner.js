@@ -27,6 +27,8 @@ plugins = require('ep_etherpad-lite/static/js/pluginfw/plugins');
 $ = jQuery = require('./rjquery').$;
 _ = require("./underscore");
 
+var DOMInterface = require('./contentcollector').DOMInterface;
+
 var isNodeText = Ace2Common.isNodeText,
   browser = Ace2Common.browser,
   getAssoc = Ace2Common.getAssoc,
@@ -1935,7 +1937,7 @@ function Ace2Inner(){
 
   function nodeText(n)
   {
-    return n.innerText || n.textContent || n.nodeValue || '';
+    return DOMInterface.getFilteredInnerText(n);
   }
 
   function getLineAndCharForPoint(point)
@@ -3113,13 +3115,13 @@ function Ace2Inner(){
     // clean nodes have knownHTML that matches their innerHTML
     var dirtiness = {};
     dirtiness.nodeId = uniqueId(n);
-    dirtiness.knownHTML = n.innerHTML;
+    dirtiness.knownHTML = DOMInterface.getFilteredInnerHTML(n);
     if (browser.msie)
     {
       // adding a space to an "empty" div in IE designMode doesn't
       // change the innerHTML of the div's parent; also, other
       // browsers don't support innerText
-      dirtiness.knownText = n.innerText;
+      dirtiness.knownText = DOMInterface.getFilteredInnerText(n);
     }
     setAssoc(n, "dirtiness", dirtiness);
   }
@@ -3133,9 +3135,9 @@ function Ace2Inner(){
     if (n.id !== data.nodeId) return true;
     if (browser.msie)
     {
-      if (n.innerText !== data.knownText) return true;
+      if (DOMInterface.getFilteredInnerText(n) !== data.knownText) return true;
     }
-    if (n.innerHTML !== data.knownHTML) return true;
+    if (DOMInterface.getFilteredInnerHTML(n) !== data.knownHTML) return true;
     p.end();
     return false;
   }

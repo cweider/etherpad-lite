@@ -28,6 +28,7 @@ var _MAX_LIST_LEVEL = 8;
 var Changeset = require('./Changeset');
 var hooks = require('./pluginfw/hooks');
 var _ = require('./underscore');
+var Security = require('./security');
 
 var DOMInterface = {
   isNodeText: function(n)
@@ -61,6 +62,61 @@ var DOMInterface = {
   optNodeInnerHTML: function(n)
   {
     return n.innerHTML;
+  },
+  getFilteredInnerHTML: function (node) {
+    if (this.isNodeText(node)) {
+      return Security.escapeHTML(this.nodeValue(node));
+    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'hidden') {
+      return ''
+    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'transparent') {
+      var value = "";
+
+      var children = node.childNodes;
+      for (var i = 0; i < children.length; i++) {
+        value += this.getFilteredInnerHTML(children.item(i));
+      }
+
+      return value;
+    } else {
+      var value = "";
+
+      var children = node.childNodes;
+      for (var i = 0; i < children.length; i++) {
+        value += this.getFilteredInnerHTML(children.item(i));
+      }
+      var classAttribute = Security.escapeHTMLAttribute(this.nodeAttr(node, 'class'));
+      var styleAttribute = Security.escapeHTMLAttribute(this.nodeAttr(node, 'style'));
+
+      return '<'+node.nodeName.toLowerCase()+
+        (classAttribute ? ' class="'+classAttribute+'"':'')+
+        (styleAttribute ? ' style="'+styleAttribute+'"':'')+'>'+
+        value+'</'+node.nodeName.toLowerCase()+'>';
+    }
+  },
+  getFilteredInnerText: function (node) {
+    if (this.isNodeText(node)) {
+      return this.nodeValue(node);
+    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'hidden') {
+      return ''
+    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'transparent') {
+      var value = "";
+
+      var children = node.childNodes;
+      for (var i = 0; i < children.length; i++) {
+        value += this.getFilteredInnerText(children.item(i));
+      }
+
+      return value;
+    } else {
+      var value = "";
+
+      var children = node.childNodes;
+      for (var i = 0; i < children.length; i++) {
+        value += this.getFilteredInnerText(children.item(i));
+      }
+
+      return value;
+    }
   }
 };
 
