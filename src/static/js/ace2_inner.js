@@ -1921,6 +1921,10 @@ function Ace2Inner(){
           charsLeft -= len;
           after = true;
         }
+        else if (DOMInterface.getNodeVisibility(n) == 'hidden')
+        {
+          after = true;
+        }
         else
         {
           if (n.firstChild) n = n.firstChild;
@@ -1978,11 +1982,23 @@ function Ace2Inner(){
         if ((prevSib = n.previousSibling))
         {
           n = prevSib;
-          col += nodeText(n).length;
+          if (!DOMInterface.isNodeText(n) && DOMInterface.getNodeVisibility(n) == 'hidden')
+          {
+            col += 0; // pretend this node does not exist
+          }
+          else
+          {
+            col += nodeText(n).length;
+          }
         }
         else
         {
           n = parNode;
+          if (!DOMInterface.isNodeText(n) && DOMInterface.getNodeVisibility(n) == 'hidden') {
+            col = 0;
+            // This to go to the end of the line (needs a concept of selection movement).
+            //col += nodeText(n).length;
+          }
         }
       }
       if (n.id === "") console.debug("BAD");
