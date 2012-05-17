@@ -63,12 +63,15 @@ var DOMInterface = {
   {
     return n.innerHTML;
   },
+  getNodeVisibility: function (node) {
+    return this.nodeAttr(node, 'data-ep-node-visibility') || "visible";
+  },
   getFilteredInnerHTML: function (node) {
     if (this.isNodeText(node)) {
       return Security.escapeHTML(this.nodeValue(node));
-    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'hidden') {
+    } else if (this.getNodeVisibility(node) == 'hidden') {
       return ''
-    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'transparent') {
+    } else if (this.getNodeVisibility(node) == 'transparent') {
       var value = "";
 
       var children = node.childNodes;
@@ -96,9 +99,9 @@ var DOMInterface = {
   getFilteredInnerText: function (node) {
     if (this.isNodeText(node)) {
       return this.nodeValue(node);
-    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'hidden') {
+    } else if (this.getNodeVisibility(node) == 'hidden') {
       return ''
-    } else if (this.nodeAttr(node, 'data-ep-node-visibility') == 'transparent') {
+    } else if (this.getNodeVisibility(node) == 'transparent') {
       var value = "";
 
       var children = node.childNodes;
@@ -430,7 +433,7 @@ function makeContentCollector(collectStyles, browser, apool, domInterface, class
     _reachBlockPoint(node, 0, state);
     if (dom.isNodeText(node))
     {
-      var txt = dom.nodeValue(node);
+      var txt = dom.getFilteredInnerText(node);
       var rest = '';
       var x = 0; // offset into original text
       if (txt.length == 0)
@@ -491,6 +494,20 @@ function makeContentCollector(collectStyles, browser, apool, domInterface, class
         {
           cc.startNewLine(state);
         }
+      }
+    }
+    else if (DOMInterface.getNodeVisibility(node) == 'hidden')
+    {
+      // pretend this node and children does not exist.
+    }
+    else if (DOMInterface.getNodeVisibility(node) == 'transparent')
+    {
+      // pretend this node does not exist, but the children do.
+      var nc = dom.nodeNumChildren(node);
+      for (var i = 0; i < nc; i++)
+      {
+        var c = dom.nodeChild(node, i);
+        cc.collectContent(c, state);
       }
     }
     else
