@@ -28,6 +28,7 @@ $ = jQuery = require('./rjquery').$;
 _ = require("./underscore");
 
 var DOMInterface = require('./contentcollector').DOMInterface;
+var hooks = require('./pluginfw/hooks');
 
 var isNodeText = Ace2Common.isNodeText,
   browser = Ace2Common.browser,
@@ -1817,6 +1818,10 @@ function Ace2Inner(){
       p2.mark("markClean");
       markNodeClean(node);
       p2.end();
+    });
+
+    hooks.callAll("aceContentsReplaced", {
+      editorInfo: editorInfo
     });
   }
 
