@@ -1943,6 +1943,7 @@ function Ace2Inner(){
       maxIndex: 1
     };
   }
+  editorInfo.getPointForLineAndChar = getPointForLineAndChar;
 
   function nodeText(n)
   {
