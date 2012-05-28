@@ -804,7 +804,7 @@ function Ace2Inner(){
       while (entry)
       {
         var domInfo = entry.domInfo;
-        buf.push((domInfo && domInfo.getInnerHTML()) || domline.processSpaces(domline.escapeHTML(entry.text), doesWrap) || '&nbsp;' /*empty line*/ );
+        buf.push((domInfo && domInfo.getInnerHTML()) || domline.processSpaces(Security.escapeHTML(entry.text), doesWrap) || '&nbsp;' /*empty line*/ );
         entry = rep.lines.next(entry);
       }
     }
