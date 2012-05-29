@@ -117,7 +117,12 @@
     require.setLibraryURI(baseURL + "javascripts/lib");
     require.setGlobalKeyPath("require");
 
+    // These jQuery things should create local references, but for now `require()`
+    // assigns to the global `$` and augments it with plugins.
     $ = jQuery = require('ep_etherpad-lite/static/js/rjquery').jQuery; // Expose jQuery #HACK
+
+    // Assign to global for compatibility.
+    JSON = require('ep_etherpad-lite/static/js/json2');
 
     if ((!$.browser.msie) && (!($.browser.mozilla && $.browser.version.indexOf("1.8.") == 0))) {
       document.domain = document.domain; // for comet
