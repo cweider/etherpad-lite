@@ -25,6 +25,7 @@
 var socket;
 
 var chat = require('./chat').chat;
+var farbtastic = require('./farbtastic');
 var getCollabClient = require('./collab_client').getCollabClient;
 var padconnectionstatus = require('./pad_connectionstatus').padconnectionstatus;
 var padcookie = require('./pad_cookie').padcookie;
@@ -421,6 +422,9 @@ var pad = {
   init: function()
   {
     padutils.setupGlobalExceptionHandler();
+
+    // I need farbtastic on my jQuery.
+    farbtastic.extendJQuery($);
 
     $(document).ready(function()
     {

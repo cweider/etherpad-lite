@@ -1,5 +1,5 @@
 // Farbtastic 2.0 alpha
-(function ($) {
+var extendJQuery = (function ($) {
   
 var __debug = false;
 var __factor = 0.5;
@@ -521,4 +521,6 @@ $._farbtastic = function (container, options) {
   fb.setColor('#808080');
 }
 
-})(jQuery);
+});
+
+exports.extendJQuery = extendJQuery;
