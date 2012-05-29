@@ -24,6 +24,8 @@
 
 var socket;
 
+var $ = require('./jquery').jQuery;
+
 var chat = require('./chat').chat;
 var farbtastic = require('./farbtastic');
 var getCollabClient = require('./collab_client').getCollabClient;

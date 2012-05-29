@@ -22,6 +22,8 @@
 
  // These parameters were global, now they are injected. A reference to the
  // Timeslider controller would probably be more appropriate.
+
+var $ = require('./jquery').jQuery;
 var _ = require('./underscore');
 
 function loadBroadcastSliderJS(fireWhenAllScriptsAreLoaded)

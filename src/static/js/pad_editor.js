@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 var padcookie = require('./pad_cookie').padcookie;
 var padutils = require('./pad_utils').padutils;
 

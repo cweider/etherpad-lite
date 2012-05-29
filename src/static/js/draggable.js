@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 function makeDraggable(jqueryNodes, eventHandler)
 {
   jqueryNodes.each(function()

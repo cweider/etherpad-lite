@@ -13,7 +13,8 @@
  *
  * Date: Mon Nov 21 21:11:03 2011 -0500
  */
-(function( window, undefined ) {
+
+var create = (function( window, undefined ) {
 
 // Use the correct document accordingly with window argument (sandbox)
 var document = window.document,
@@ -9241,7 +9242,6 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 
 
-
 // Expose jQuery to the global object
 window.jQuery = window.$ = jQuery;
 
@@ -9261,6 +9261,16 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 	define( "jquery", [], function () { return jQuery; } );
 }
 
+return jQuery;
 
+});
 
-})( window );
+if (typeof exports != "undefined") {
+  exports.create = create;
+
+  exports.init = function () {
+    var $ = create(window);
+    $.noConflict(true);
+    exports.$ = exports.jQuery = $;
+  }
+}

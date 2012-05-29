@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 var padutils = require('./pad_utils').padutils;
 var padeditor = require('./pad_editor').padeditor;
 var padsavedrevs = require('./pad_savedrevs');

@@ -20,6 +20,7 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
 var chat = require('./chat').chat;
 
 // Dependency fill on init. This exists for `pad.socket` only.

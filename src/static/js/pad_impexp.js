@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 var paddocbar = require('./pad_docbar').paddocbar;
 
 var padimpexp = (function()

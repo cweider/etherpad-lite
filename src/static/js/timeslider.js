@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 var createCookie = require('./pad_utils').createCookie;
 var readCookie = require('./pad_utils').readCookie;
 var randomString = require('./pad_utils').randomString;

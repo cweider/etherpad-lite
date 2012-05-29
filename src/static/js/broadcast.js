@@ -20,6 +20,8 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
+
 var makeCSSManager = require('./cssmanager').makeCSSManager;
 var domline = require('./domline').domline;
 var AttribPool = require('./AttributePool');

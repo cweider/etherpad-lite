@@ -19,13 +19,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var editor, _, $, jQuery, plugins, Ace2Common;
 
-Ace2Common = require('./ace2_common');
+var editor;
 
-plugins = require('ep_etherpad-lite/static/js/pluginfw/plugins');
-$ = jQuery = require('./rjquery').$;
-_ = require("./underscore");
+var Ace2Common = require('./ace2_common');
+var plugins = require('ep_etherpad-lite/static/js/pluginfw/plugins');
+var $ = require('./jquery').jQuery;
+var _ = require("./underscore");
 
 var isNodeText = Ace2Common.isNodeText,
   browser = Ace2Common.browser,

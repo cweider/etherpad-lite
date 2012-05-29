@@ -14,8 +14,7 @@ if (!exports.isClient) {
   var util = require("util");
   _ = require("underscore");
 }else{
-  var $, jQuery;
-  $ = jQuery = require("ep_etherpad-lite/static/js/rjquery").$;
+  var jQuery = require("ep_etherpad-lite/static/js/jquery").jQuery;
   _ = require("ep_etherpad-lite/static/js/underscore");
 }
 

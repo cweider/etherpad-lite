@@ -20,6 +20,7 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
 var padmodals = require('./pad_modals').padmodals;
 
 var padconnectionstatus = (function()

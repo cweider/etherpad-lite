@@ -57,7 +57,6 @@
 , "ace2_common.js": [
     "ace2_common.js"
   , "jquery.js"
-  , "rjquery.js"
   , "underscore.js"
   , "security.js"
   , "json2.js"

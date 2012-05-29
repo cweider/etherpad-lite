@@ -272,7 +272,7 @@ require.setGlobalKeyPath("require");\n\
 ');
 
       iframeHTML.push('<script type="text/javascript">');
-      iframeHTML.push('$ = jQuery = require("ep_etherpad-lite/static/js/rjquery").jQuery; // Expose jQuery #HACK');
+      iframeHTML.push('require("ep_etherpad-lite/static/js/jquery").init();');
       iframeHTML.push('require("ep_etherpad-lite/static/js/ace2_inner");');
       iframeHTML.push('<\/script>');
 

@@ -20,6 +20,7 @@
  * limitations under the License.
  */
 
+var $ = require('./jquery').jQuery;
 var Security = require('./security');
 
 /**
