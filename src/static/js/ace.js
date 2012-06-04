@@ -284,8 +284,33 @@ require.setGlobalKeyPath("require");\n\
       var thisFunctionsName = "ChildAccessibleAce2Editor";
       (function () {return this}())[thisFunctionsName] = Ace2Editor;
 
-      var outerScript = 'editorId = "' + info.id + '"; editorInfo = parent.' + thisFunctionsName + '.registry[editorId]; ' + 'window.onload = function() ' + '{ window.onload = null; setTimeout' + '(function() ' + '{ var iframe = document.createElement("IFRAME"); iframe.name = "ace_inner";' + 'iframe.scrolling = "no"; var outerdocbody = document.getElementById("outerdocbody"); ' + 'iframe.frameBorder = 0; iframe.allowTransparency = true; ' + // for IE
-      'outerdocbody.insertBefore(iframe, outerdocbody.firstChild); ' + 'iframe.ace_outerWin = window; ' + 'readyFunc = function() { editorInfo.onEditorReady(); readyFunc = null; editorInfo = null; }; ' + 'var doc = iframe.contentWindow.document; doc.open(); var text = (' + JSON.stringify(iframeHTML.join('\n')) + ');doc.write(text); doc.close(); ' + '}, 0); }';
+      var outerScript = '
+editorId = "' + info.id + '";\
+editorInfo = parent.' + thisFunctionsName + '.registry[editorId];\
+window.onload = function() {\
+  window.onload = null;\
+  setTimeout(function() {\
+    var iframe = document.createElement("IFRAME");\
+    iframe.name = "ace_inner";\
+    iframe.scrolling = "no";\
+    var outerdocbody = document.getElementById("outerdocbody");\
+    iframe.frameBorder = 0;\
+    iframe.allowTransparency = true; /* for IE */\
+    outerdocbody.insertBefore(iframe, outerdocbody.firstChild);\
+    iframe.ace_outerWin = window;\
+    readyFunc = function() {\
+      editorInfo.onEditorReady();\
+      readyFunc = null;\
+      editorInfo = null;\
+    };\
+    var doc = iframe.contentWindow.document;\
+    doc.open();\
+    var text = (' + JSON.stringify(iframeHTML.join('\n')) + ');\
+    doc.write(text);\
+    doc.close();\
+  }, 0);\
+}\
+';
 
       var outerHTML = [doctype, '<html><head>']
 
