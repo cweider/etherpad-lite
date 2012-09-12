@@ -240,16 +240,24 @@ require.setRootURI("../javascripts/src");\n\
 require.setLibraryURI("../javascripts/lib");\n\
 require.setGlobalKeyPath("require");\n\
 \n\
-var hooks = require("ep_etherpad-lite/static/js/pluginfw/hooks");\n\
-var plugins = require("ep_etherpad-lite/static/js/pluginfw/client_plugins");\n\
-hooks.plugins = plugins;\n\
-plugins.adoptPluginsFromAncestorsOf(window);\n\
+require("ep_etherpad-lite/static/js/ace2_common", "ep_etherpad-lite/static/js/ace2_inner", function () {\n\
+  var hooks = require("ep_etherpad-lite/static/js/pluginfw/hooks");\n\
+  var plugins = require("ep_etherpad-lite/static/js/pluginfw/client_plugins");\n\
 \n\
-$ = jQuery = require("ep_etherpad-lite/static/js/rjquery").jQuery; // Expose jQuery #HACK\n\
-var Ace2Inner = require("ep_etherpad-lite/static/js/ace2_inner");\n\
+  hooks.plugins = plugins;\n\
+  plugins.adoptPluginsFromAncestorsOf(window);\n\
 \n\
-plugins.ensure(function () {\n\
-  Ace2Inner.init();\n\
+  $ = jQuery = require("ep_etherpad-lite/static/js/rjquery").jQuery; // Expose jQuery #HACK\n\
+  var Ace2Inner = require("ep_etherpad-lite/static/js/ace2_inner");\n\
+\n\
+  // Expose globals #HACK\n\
+  window.hooks = hooks;\n\
+  window.$ = window.jQuery = jQuery.$;\n\
+\n\
+  plugins.ensure(function () {\n\
+    var Ace2Inner = require("ep_etherpad-lite/static/js/ace2_inner");\n\
+    Ace2Inner.init();\n\
+  });\n\
 });\n\
 '));
 
